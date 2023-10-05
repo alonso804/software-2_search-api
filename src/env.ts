@@ -8,6 +8,8 @@ dotenv.config();
 const envVariablesSchema = z.object({
   PORT: z.string().regex(/^\d+$/).default('3000'),
   POKE_API_URL: z.string().url(),
+  POKE_IMAGES_URL: z.string().url(),
+  POKE_STATS_URL: z.string().url(),
 });
 
 const parsedEnvVariables = envVariablesSchema.safeParse(process.env);
