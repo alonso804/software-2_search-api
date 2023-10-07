@@ -7,6 +7,8 @@ class PokeController {
   static async searchByName(req: Request, res: Response): Promise<void> {
     const start = performance.now();
 
+    let status = 200;
+
     const name = req.query.name;
     logger.info({ microservice: 'search-api', message: `Read from query ${name}` });
 
@@ -26,14 +28,17 @@ class PokeController {
         if (error.response?.status === 404) {
           const end = performance.now();
 
+          status = 404;
+
           logger.warn({
             microservice: 'search-api',
             from: 'poke-api',
             message: 'Pokemon not found',
             time: end - start,
+            status,
           });
 
-          res.status(404).send({ message: 'Pokemon not found' });
+          res.status(status).send({ message: 'Pokemon not found' });
           return;
         }
       }
@@ -59,14 +64,17 @@ class PokeController {
         if (error.response?.status === 404) {
           const end = performance.now();
 
+          status = 404;
+
           logger.warn({
             microservice: 'search-api',
             from: 'poke-images',
             message: 'Pokemon not found',
             time: end - start,
+            status,
           });
 
-          res.status(404).send({ message: 'Pokemon not found' });
+          res.status(status).send({ message: 'Pokemon not found' });
           return;
         }
       }
@@ -92,14 +100,17 @@ class PokeController {
         if (error.response?.status === 404) {
           const end = performance.now();
 
+          status = 404;
+
           logger.warn({
             microservice: 'search-api',
             from: 'poke-stats',
             message: 'Pokemon not found',
             time: end - start,
+            status,
           });
 
-          res.status(404).send({ message: 'Pokemon not found' });
+          res.status(status).send({ message: 'Pokemon not found' });
           return;
         }
       }
@@ -113,9 +124,10 @@ class PokeController {
       microservice: 'search-api',
       message: `Pokemon ${pokemon.name}`,
       time: end - start,
+      status,
     });
 
-    res.status(200).send({ ...pokemon, ...images, ...stats });
+    res.status(status).send({ ...pokemon, ...images, ...stats });
   }
 }
 
