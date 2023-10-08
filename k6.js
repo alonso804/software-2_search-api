@@ -1,4 +1,5 @@
 import http from 'k6/http';
+import { sleep } from 'k6';
 
 const host = 'http://localhost:4000';
 

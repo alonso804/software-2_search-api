@@ -10,7 +10,7 @@ class PokeController {
     let status = 200;
 
     const name = req.query.name;
-    logger.info({ microservice: 'search-api', message: `Read from query ${name}` });
+    // logger.info({ microservice: 'search-api', message: `Read from query ${name}` });
 
     let pokemon: Record<string, unknown>;
 
@@ -19,10 +19,10 @@ class PokeController {
 
       pokemon = response.data as Record<string, unknown>;
 
-      logger.info({
-        microservice: 'search-api',
-        message: `Data from poke-api ${JSON.stringify(pokemon)}`,
-      });
+      // logger.info({
+      //   microservice: 'search-api',
+      //   message: `Data from poke-api ${JSON.stringify(pokemon)}`,
+      // });
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 404) {
@@ -53,10 +53,10 @@ class PokeController {
         `${process.env.POKE_IMAGES_URL}/pokemon/images/${pokemon.id}`,
       );
 
-      logger.info({
-        microservice: 'search-api',
-        message: `Data from poke-images ${pokemon.name}`,
-      });
+      // logger.info({
+      //   microservice: 'search-api',
+      //   message: `Data from poke-images ${pokemon.name}`,
+      // });
 
       images = response.data as unknown[];
     } catch (error) {
@@ -89,10 +89,10 @@ class PokeController {
         `${process.env.POKE_STATS_URL}/poke-stats/get/${pokemon.id as number}`,
       );
 
-      logger.info({
-        microservice: 'search-api',
-        message: `Data from poke-stats ${pokemon.name}`,
-      });
+      // logger.info({
+      //   microservice: 'search-api',
+      //   message: `Data from poke-stats ${pokemon.name}`,
+      // });
 
       stats = response.data as unknown[];
     } catch (error) {
